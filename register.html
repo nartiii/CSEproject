@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>CourtLine | Sign Up</title>
+  <link rel="stylesheet" href="register.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <p>Free shipping on orders over 50€</p>
+  </div>
+
+  <header class="header">
+    <div class="nav-left">
+      <a href="men.html">Men</a>
+      <a href="women.html">Women</a>
+      <a href="kids.html">Kids</a>
+      <a href="products.html">New</a>
+      <a href="football.html">Football</a>
+    </div>
+
+    <div class="nav-logo">
+      <a href="index.html">CourtLine<span>.</span></a>
+    </div>
+
+    <div class="nav-right">
+      <form class="search-form">
+        <input type="text" placeholder="Search">
+      </form>
+      <a href="login.html" class="nav-link-light">Login</a>
+      <a href="register.html" class="btn-nav">Sign Up</a>
+    </div>
+  </header>
+
+
+
+  <main class="auth-layout">
+    <section class="auth-box">
+      <h1>Create Account</h1>
+      <p class="auth-subtitle">Join CourtLine to save your favourites and track your orders.</p>
+
+      <form id="registerForm" class="auth-form">
+        <label>
+          Username
+          <input type="text" id="registerUsername" placeholder="yourname">
+        </label>
+
+        <label>
+          Email
+          <input type="email" id="registerEmail" placeholder="you@example.com">
+        </label>
+
+        <label>
+          Password
+          <input type="password" id="registerPassword" placeholder="At least 6 characters">
+        </label>
+
+        <label>
+          Confirm Password
+          <input type="password" id="registerConfirmPassword" placeholder="Repeat password">
+        </label>
+
+        <p id="registerError" class="auth-error"></p>
+
+        <button type="submit" class="auth-btn">Sign Up</button>
+      </form>
+
+      <p class="auth-bottom-text">
+        Already have an account?
+        <a href="login.html">Login</a>
+      </p>
+    </section>
+  </main>
+
+
+  <footer class="footer">
+    <p>© 2025 CourtLine. All rights reserved.</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
