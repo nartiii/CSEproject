@@ -1,0 +1,146 @@
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #050505;
+  color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+
+.top-bar {
+  background: #111;
+  color: #eee;
+  font-size: 12px;
+  text-align: center;
+  padding: 6px 10px;
+}
+
+
+.header {
+  background: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  border-bottom: 1px solid #222;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-left a,
+.nav-right a {
+  font-size: 13px;
+  color: #f5f5f5;
+  text-decoration: none;
+}
+
+.nav-left a:hover,
+.nav-right a:hover {
+  color: #e53935;
+}
+
+.nav-logo {
+  text-align: center;
+}
+
+.nav-logo a {
+  text-decoration: none;
+  color: #f5f5f5;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-logo span {
+  color: #e53935;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 5px 8px;
+  border-radius: 3px;
+  border: 1px solid #333;
+  background: #111;
+  color: #f5f5f5;
+  font-size: 12px;
+}
+
+.gallery-page {
+  background: #050505;
+  padding: 24px 24px 40px;
+  color: #f5f5f5;
+}
+
+.gallery-header {
+  max-width: 1100px;
+  margin: 0 auto 16px;
+}
+
+.gallery-header h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.gallery-header p {
+  font-size: 13px;
+  color: #b0b0b0;
+}
+
+
+.masonry-gallery {
+  max-width: 1300px;
+  margin: 0 auto;
+  column-count: 3;        
+  column-gap: 10px;
+}
+
+.masonry-gallery img {
+  width: 100%;
+  display: block;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  filter: grayscale(100%);
+  transition: 0.5s ease;
+}
+
+.masonry-gallery img:hover {
+  filter: grayscale(0%);
+}
+
+
+
+
+.footer {
+  text-align: center;
+  padding: 16px 10px;
+  font-size: 12px;
+  color: #a0a0a0;
+  border-top: 1px solid #181818;
+  background: #000;
+  margin-top: 10px;
+}
+
+
+@media (max-width: 900px) {
+  .masonry-gallery {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .masonry-gallery {
+    column-count: 1;
+  }
+}
