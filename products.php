@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+require_once __DIR__ . "/app/Database.php";
+$pdo = Database::connect();
+$products = $pdo->query("select * from products order by created_at desc")->fetchAll();
+?>
 
 <head>
   <meta charset="UTF-8">
@@ -48,7 +53,39 @@
     <h1 class="catalog-title">New Arrivals</h1>
     <p class="catalog-subtitle">Fresh drops and the latest fits just added to the store.</p>
 
-    <section class="catalog-grid">
+<section class="catalog-grid">
+
+  <?php foreach ($products as $p): ?>
+    <article class="catalog-card">
+      <div class="catalog-img-wrap">
+        <img src="<?php echo htmlspecialchars($p['image_path']); ?>" alt="">
+      </div>
+
+      <div class="catalog-body">
+        <p class="catalog-tag">NEW</p>
+        <p class="catalog-brand"><?php echo htmlspecialchars($p['category']); ?></p>
+
+        <h3 class="catalog-name"><?php echo htmlspecialchars($p['title']); ?></h3>
+
+        <p class="catalog-price">
+          <?php echo number_format((float)$p['price'], 2); ?> €
+        </p>
+
+        <p class="catalog-sizes-label">Available sizes:</p>
+        <div class="catalog-sizes">
+          <span>OS</span>
+        </div>
+      </div>
+    </article>
+  <?php endforeach; ?>
+
+</section>
+
+
+
+
+
+  <!--  <section class="catalog-grid">
 
       
       <article class="catalog-card">
@@ -194,7 +231,7 @@
         </div>
       </article>
 
-    </section>
+    </section> -->
   </main>
 
   <footer class="footer">

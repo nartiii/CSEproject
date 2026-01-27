@@ -21,6 +21,7 @@
       <a href="kids.html">Kids</a>
       <a href="products.html">New</a>
       <a href="football.html">Football</a>
+      
     </div>
 
     <div class="nav-logo">
@@ -28,9 +29,13 @@
     </div>
 
     <div class="nav-right">
+      <a href="about.php">About</a>
+<a href="contact.php">Contact</a>
+
       <form class="search-form">
         <input type="text" placeholder="Search" />
       </form>
+      
       <a href="login.html" class="nav-link-light">Login</a>
       <a href="register.html" class="btn-nav">Sign Up</a>
     </div>
