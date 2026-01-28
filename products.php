@@ -25,12 +25,12 @@ $products = $pdo->query("select * from products order by created_at desc")->fetc
       <a href="men.html">Men</a>
       <a href="women.html">Women</a>
       <a href="kids.html">Kids</a>
-      <a href="products.html">New</a>
+      <a href="products.php">New</a>
      <a href="football.html">Football</a>
     </div>
 
     <div class="nav-logo">
-      <a href="index.html">CourtLine<span>.</span></a>
+      <a href="index.php">CourtLine<span>.</span></a>
     </div>
 
     <div class="nav-right">

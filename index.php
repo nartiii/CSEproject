@@ -19,7 +19,7 @@
       <a href="men.html">Men</a>
       <a href="women.html">Women</a>
       <a href="kids.html">Kids</a>
-      <a href="products.html">New</a>
+      <a href="products.php">New</a>
       <a href="football.html">Football</a>
       
     </div>
@@ -58,7 +58,7 @@
           <div class="slide-content">
             <h1>New Season, New Heat</h1>
             <p>Fresh drops for every court and street.</p>
-            <a href="products.html" class="btn-main">Shop Now</a>
+            <a href="products.php" class="btn-main">Shop Now</a>
           </div>
         </div>
 
