@@ -1,14 +1,27 @@
 <?php
 require_once __DIR__ . "/../app/Database.php";
 require_once __DIR__ . "/guard.php";
+$pdo = Database::connect();
+
+$id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+$stmt = $pdo->prepare("select * from products where id = ?");
+$stmt->execute([$id]);
+$product = $stmt->fetch();
+
+if (!$product) {
+  http_response_code(404);
+  echo "Product not found.";
+  exit;
+}
+
 $errors = [];
 $saved = false;
 
-$title = "";
-$description = "";
-$price = "";
-$category = "";
-$image_path = "";
+$title = $product["title"];
+$description = $product["description"];
+$price = (string)$product["price"];
+$category = $product["category"];
+$image_path = $product["image_path"];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $title = trim($_POST["title"] ?? "");
@@ -17,25 +30,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $category = trim($_POST["category"] ?? "");
   $image_path = trim($_POST["image_path"] ?? "");
 
- 
   if (strlen($title) < 2) $errors[] = "Title must be at least 2 characters.";
   if (strlen($description) < 5) $errors[] = "Description must be at least 5 characters.";
   if ($category === "") $errors[] = "Category is required.";
   if ($price === "" || !is_numeric($price) || (float)$price <= 0) $errors[] = "Price must be a number > 0.";
 
   if (count($errors) === 0) {
-    $pdo = Database::connect();
-
-    $stmt = $pdo->prepare("
-      insert into products (title, description, price, category, image_path)
-      values (?, ?, ?, ?, ?)
+    $u = $pdo->prepare("
+      update products
+      set title = ?, description = ?, price = ?, category = ?, image_path = ?
+      where id = ?
     ");
-
-    $stmt->execute([$title, $description, (float)$price, $category, $image_path]);
-
+    $u->execute([$title, $description, (float)$price, $category, $image_path, $id]);
     $saved = true;
-    // clear form
-    $title = $description = $price = $category = $image_path = "";
   }
 }
 ?>
@@ -43,14 +50,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin | Add Product</title>
+  <title>Admin | Edit Product</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
   <main style="max-width: 800px; margin: 0 auto; padding: 24px;">
-    <h1>Add Product</h1>
+    <h1>Edit Product #<?php echo (int)$id; ?></h1>
 
     <div style="display:flex; gap:10px; margin: 14px 0;">
       <a href="products_list.php" style="padding:10px 12px; border:1px solid #333; border-radius:8px; text-decoration:none;">← Back</a>
@@ -59,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <?php if ($saved): ?>
       <p style="padding:10px;border:1px solid #1f4020;background:#071207;border-radius:6px;">
-        ✅ Product added successfully.
+        ✅ Product updated successfully.
       </p>
     <?php endif; ?>
 
@@ -74,23 +81,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       </div>
     <?php endif; ?>
 
-    <form method="post" action="products_create.php" style="display:flex;flex-direction:column;gap:12px;margin-top:14px;">
-      <input type="text" name="title" placeholder="Title" value="<?php echo htmlspecialchars($title); ?>">
-
+    <form method="post" action="products_edit.php?id=<?php echo (int)$id; ?>" style="display:flex;flex-direction:column;gap:12px;margin-top:14px;">
+      <input type="text" name="title" value="<?php echo htmlspecialchars($title); ?>" placeholder="Title">
       <textarea name="description" rows="5" placeholder="Description"><?php echo htmlspecialchars($description); ?></textarea>
-
-      <input type="text" name="category" placeholder="Category (sneakers / clothes / football...)" value="<?php echo htmlspecialchars($category); ?>">
-
-      <input type="text" name="price" placeholder="Price (e.g. 99.99)" value="<?php echo htmlspecialchars($price); ?>">
-
-      <input type="text" name="image_path" placeholder="Image URL or path (optional)" value="<?php echo htmlspecialchars($image_path); ?>">
-
-      <button type="submit" style="padding:10px 12px; border:1px solid #333; border-radius:8px; cursor:pointer;">
-        Save Product
-      </button>
+      <input type="text" name="category" value="<?php echo htmlspecialchars($category); ?>" placeholder="Category">
+      <input type="text" name="price" value="<?php echo htmlspecialchars($price); ?>" placeholder="Price">
+      <input type="text" name="image_path" value="<?php echo htmlspecialchars($image_path); ?>" placeholder="Image path/url">
+      <button type="submit" style="padding:10px 12px; border:1px solid #333; border-radius:8px; cursor:pointer;">Save Changes</button>
     </form>
-
-
   </main>
 
 </body>

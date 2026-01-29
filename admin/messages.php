@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . "/../app/Database.php";
+require_once __DIR__ . "/guard.php";
 
 $pdo = Database::connect();
 $rows = $pdo->query("select * from contact_messages order by created_at desc")->fetchAll();

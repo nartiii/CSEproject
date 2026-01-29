@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../app/Database.php";
-
+require_once __DIR__ . "/guard.php";
 $pdo = Database::connect();
 $products = $pdo->query("select * from products order by created_at desc")->fetchAll();
 ?>

@@ -1,9 +1,16 @@
-<!DOCTYPE html>
 <?php
 require_once __DIR__ . "/app/Database.php";
+require_once __DIR__ . "/app/Auth.php";
+
+$user = Auth::user();
+
 $pdo = Database::connect();
 $products = $pdo->query("select * from products order by created_at desc")->fetchAll();
 ?>
+
+
+<!DOCTYPE html>
+
 
 <head>
   <meta charset="UTF-8">

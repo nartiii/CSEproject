@@ -1,3 +1,9 @@
+<?php
+require_once __DIR__ . "/app/Auth.php";
+$user = Auth::user();
+?>
+    
+    
     <!DOCTYPE html>
 
 <head>
@@ -36,8 +42,18 @@
         <input type="text" placeholder="Search" />
       </form>
       
-      <a href="login.html" class="nav-link-light">Login</a>
-      <a href="register.html" class="btn-nav">Sign Up</a>
+      <?php if ($user): ?>
+  <?php if ($user["role"] === "admin"): ?>
+    <a href="admin/dashboard.php" class="nav-link-light">Dashboard</a>
+  <?php endif; ?>
+
+  <span class="nav-link-light">Hi, <?php echo htmlspecialchars($user["name"]); ?></span>
+  <a href="logout.php" class="btn-nav">Logout</a>
+<?php else: ?>
+  <a href="login.php" class="nav-link-light">Login</a>
+  <a href="register.php" class="btn-nav">Sign Up</a>
+<?php endif; ?>
+
     </div>
   </header>
 

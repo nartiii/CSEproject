@@ -1,6 +1,8 @@
 <?php
-
+require_once __DIR__ . "/app/Auth.php";
+$user = Auth::user();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

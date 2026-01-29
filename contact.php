@@ -1,5 +1,9 @@
 <?php
+require_once __DIR__ . "/app/Auth.php";
+$user = Auth::user();
+
 require_once __DIR__ . "/app/Database.php";
+
 
 $errors = [];
 $sent = false;
@@ -13,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $email = trim($_POST["email"] ?? "");
   $message = trim($_POST["message"] ?? "");
 
-  // simple backend validation
+  
   if (strlen($name) < 2) $errors[] = "Name must be at least 2 characters.";
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Email is not valid.";
   if (strlen($message) < 10) $errors[] = "Message must be at least 10 characters.";
