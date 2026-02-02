@@ -127,3 +127,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
+  const form = document.getElementById("contactForm");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      const name = document.getElementById("contactName").value.trim();
+      const email = document.getElementById("contactEmail").value.trim();
+      const msg = document.getElementById("contactMessage").value.trim();
+      const err = document.getElementById("contactError");
+
+      let text = "";
+      if (name.length < 2) text = "Name must be at least 2 characters.";
+      else if (!email.includes("@")) text = "Email is not valid.";
+      else if (msg.length < 10) text = "Message must be at least 10 characters.";
+
+      if (text) {
+        e.preventDefault();
+        err.textContent = text;
+        err.style.color = "#ff6b6b";
+      } else {
+        err.textContent = "";
+      }
+    });
+  }

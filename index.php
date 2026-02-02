@@ -6,6 +6,14 @@ require_once __DIR__ . "/app/Content.php";
 
 $pdo = Database::connect();
 
+$home = Content::getMany($pdo, [
+  "home_section_1_title",
+  "home_section_1_text"
+]);
+
+$homeSectionTitle = $home["home_section_1_title"] ?? "";
+$homeSectionText  = $home["home_section_1_text"] ?? "";
+
 $slides = $pdo->query("select * from home_slides order by sort_order asc")->fetchAll();
 
 $newCollection = $pdo->query("select id, title, price, image_path from products order by created_at desc limit 8")->fetchAll();
@@ -129,7 +137,11 @@ $newCollection = $pdo->query("select id, title, price, image_path from products 
     </section>
 
     <section class="featured">
-  <h2>New Collection</h2>
+ <h2><?php echo htmlspecialchars($homeSectionTitle); ?></h2>
+<p style="max-width:720px;margin:8px 0 18px;opacity:.85;">
+  <?php echo htmlspecialchars($homeSectionText); ?>
+</p>
+
 
   <div class="products-grid grid-4">
 

@@ -1,7 +1,36 @@
 <?php
 require_once __DIR__ . "/app/Auth.php";
+require_once __DIR__ . "/app/Database.php";
+require_once __DIR__ . "/app/Content.php";
+
 $user = Auth::user();
+
+$pdo = Database::connect(); 
+
+$content = Content::getMany($pdo, [
+  "about_title",
+  "about_text",
+  "about_card1_title",
+  "about_card1_text",
+  "about_card2_title",
+  "about_card2_text",
+  "about_card3_title",
+  "about_card3_text"
+]);
+
+$aboutTitle = $content["about_title"] ?? "About";
+$aboutText  = $content["about_text"] ?? "";
+
+$c1t = $content["about_card1_title"] ?? "";
+$c1p = $content["about_card1_text"] ?? "";
+
+$c2t = $content["about_card2_title"] ?? "";
+$c2p = $content["about_card2_text"] ?? "";
+
+$c3t = $content["about_card3_title"] ?? "";
+$c3p = $content["about_card3_text"] ?? "";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +52,7 @@ $user = Auth::user();
       <a href="men.html">Men</a>
       <a href="women.html">Women</a>
       <a href="kids.html">Kids</a>
-      <a href="products.html">New</a>
+      <a href="products.php">New</a>
       <a href="football.html">Football</a>
     </div>
 
@@ -32,53 +61,57 @@ $user = Auth::user();
     </div>
 
     <div class="nav-right">
-      <form class="search-form">
-        <input type="text" placeholder="Search" />
-      </form>
-      <a href="about.php" class="nav-link-light">About</a>
-      <a href="contact.php" class="nav-link-light">Contact</a>
-      <a href="login.html" class="nav-link-light">Login</a>
-      <a href="register.html" class="btn-nav">Sign Up</a>
-    </div>
+  <a href="about.php" class="nav-link-light">About</a>
+  <a href="contact.php" class="nav-link-light">Contact</a>
+
+  <form class="search-form">
+    <input type="text" placeholder="Search" />
+  </form>
+
+  <?php if ($user): ?>
+    <?php if (($user["role"] ?? "") === "admin"): ?>
+      <a href="admin/dashboard.php" class="nav-link-light">Dashboard</a>
+    <?php endif; ?>
+
+    <span class="nav-link-light">Hi, <?php echo htmlspecialchars($user["name"]); ?></span>
+    <a href="logout.php" class="btn-nav">Logout</a>
+  <?php else: ?>
+    <a href="login.php" class="nav-link-light">Login</a>
+    <a href="register.php" class="btn-nav">Sign Up</a>
+  <?php endif; ?>
+</div>
+
   </header>
 
   <section class="category-strip">
     <a href="clothes.html">Clothes</a>
     <a href="sneakers.html">Sneakers</a>
     <a href="accessories.html">Accessories</a>
-    <a href="gallery.html">Gallery</a>
+    <a href="gallery.php">Gallery</a>
   </section>
 
   <main class="page-wrap">
-    <section class="page-hero">
-      <h1>About CourtLine</h1>
-      <p>The heart of sportswear — built for the court, the street, and everything in between.</p>
-    </section>
+  <section class="page-hero">
+    <h1><?php echo htmlspecialchars($aboutTitle); ?></h1>
+    <p><?php echo htmlspecialchars($aboutText); ?></p>
+  </section>
 
-    <section class="page-card">
-      <h2>What we do</h2>
-      <p>
-        CourtLine is a sportswear store concept focused on clean design, easy browsing, and premium items.
-        This project is built with HTML, CSS, JavaScript, and now extended with PHP + MySQL for Phase 2.
-      </p>
-    </section>
+  <section class="page-card">
+    <h2><?php echo htmlspecialchars($c1t); ?></h2>
+    <p><?php echo nl2br(htmlspecialchars($c1p)); ?></p>
+  </section>
 
-    <section class="page-card">
-      <h2>Why CourtLine</h2>
-      <p>
-        Our goal is a fast and modern shopping experience with categories like Sneakers, Clothes,
-        Accessories, and Football collections.
-      </p>
-    </section>
+  <section class="page-card">
+    <h2><?php echo htmlspecialchars($c2t); ?></h2>
+    <p><?php echo nl2br(htmlspecialchars($c2p)); ?></p>
+  </section>
 
-    <section class="page-card">
-      <h2>Phase 2 (backend)</h2>
-      <p>
-        In this phase, pages will become dynamic and read content from the database. Admin will manage content
-        through a dashboard, and contact messages will be stored and readable.
-      </p>
-    </section>
-  </main>
+  <section class="page-card">
+    <h2><?php echo htmlspecialchars($c3t); ?></h2>
+    <p><?php echo nl2br(htmlspecialchars($c3p)); ?></p>
+  </section>
+</main>
+
 
   <footer class="footer">
     <p>© 2025 CourtLine. All rights reserved.</p>
