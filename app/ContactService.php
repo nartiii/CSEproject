@@ -1,27 +1,20 @@
 <?php
 
-
 require_once __DIR__ . "/Database.php";
 
-class ContactService
+final class ContactService
 {
-    public function saveMessage(string $name, string $email, string $subject, string $message, ?string $createdBy = null): int
-    {
-        $pdo = Database::pdo();
+  public function saveMessage(string $name, string $email, string $message, ?string $createdBy = null): int
+  {
+    $pdo = Database::connect();
 
-        $stmt = $pdo->prepare("
-            INSERT INTO contact_messages (name, email, subject, message, created_by)
-            VALUES (:name, :email, :subject, :message, :created_by)
-        ");
+    $stmt = $pdo->prepare(
+      "insert into contact_messages (name, email, message, created_by)
+       values (?, ?, ?, ?)"
+    );
 
-        $stmt->execute([
-            ":name" => $name,
-            ":email" => $email,
-            ":subject" => $subject,
-            ":message" => $message,
-            ":created_by" => $createdBy
-        ]);
+    $stmt->execute([$name, $email, $message, $createdBy]);
 
-        return (int)$pdo->lastInsertId();
-    }
+    return (int)$pdo->lastInsertId();
+  }
 }

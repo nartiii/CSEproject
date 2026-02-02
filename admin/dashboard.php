@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <title>CourtLine | Admin Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  
 </head>
 <body>
 <div style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0;">
@@ -26,12 +26,17 @@
     Manage Home Slider
   </a>
 
+
+  <a href="messages.php"
+     style="display:inline-block;padding:10px 14px;border:1px solid #222;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:600;">
+   View Contact Messages
+  </a>
+
   <a href="../index.php"
      style="display:inline-block;padding:10px 14px;border:1px solid #222;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:600;">
     Back to Website
   </a>
 </div>
-
 
 
 
