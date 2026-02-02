@@ -29,11 +29,11 @@ $products = $pdo->query("select * from products order by created_at desc")->fetc
   
   <header class="header">
     <div class="nav-left">
-      <a href="men.html">Men</a>
-      <a href="women.html">Women</a>
-      <a href="kids.html">Kids</a>
-      <a href="products.php">New</a>
-     <a href="football.html">Football</a>
+      <a href="men.php">Men</a>
+      <a href="women.php">Women</a>
+      <a href="kids.php">Kids</a>
+     <a href="products.php">Products</a>
+     <a href="football.php">Football</a>
     </div>
 
     <div class="nav-logo">
@@ -50,9 +50,9 @@ $products = $pdo->query("select * from products order by created_at desc")->fetc
   </header>
 
   <section class="category-strip">
-  <a href="clothes.html">Clothes</a>
-  <a href="sneakers.html">Sneakers</a>
-  <a href="accessories.html">Accessories</a>
+  <a href="clothes.php">Clothes</a>
+  <a href="sneakers.php">Sneakers</a>
+  <a href="accessories.php">Accessories</a>
     <a href="gallery.php">Gallery</a>
   </section>
 

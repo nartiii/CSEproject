@@ -1,0 +1,234 @@
+<?php
+require_once __DIR__ . "/app/Auth.php";
+$user = Auth::user();
+require_once __DIR__ . "/app/Database.php";
+require_once __DIR__ . "/app/Content.php";
+
+$pdo = Database::connect();
+
+
+?>
+
+
+
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>CourtLine | Sneakers</title>
+  <link rel="stylesheet" href="main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+
+  <div class="top-bar">
+    <p>Free shipping on orders over 50€</p>
+  </div>
+
+  
+  <header class="header">
+    <div class="nav-left">
+      <a href="men.php">Men</a>
+      <a href="women.php">Women</a>
+      <a href="kids.php">Kids</a>
+      <a href="products.php">Products</a>
+      <a href="football.php">Football</a>
+    </div>
+
+    <div class="nav-logo">
+      <a href="index.php">CourtLine<span>.</span></a>
+    </div>
+
+     <div class="nav-right">
+      <a href="about.php">About</a>
+<a href="contact.php">Contact</a>
+
+      <form class="search-form">
+        <input type="text" placeholder="Search" />
+      </form>
+      
+      <?php if ($user): ?>
+  <?php if ($user["role"] === "admin"): ?>
+    <a href="admin/dashboard.php" class="nav-link-light">Dashboard</a>
+  <?php endif; ?>
+
+  <span class="nav-link-light">Hi, <?php echo htmlspecialchars($user["name"]); ?></span>
+  <a href="logout.php" class="btn-nav">Logout</a>
+<?php else: ?>
+  <a href="login.php" class="nav-link-light">Login</a>
+  <a href="register.php" class="btn-nav">Sign Up</a>
+<?php endif; ?>
+
+    </div>
+  </header>
+
+  <section class="category-strip">
+  <a href="clothes.php">Clothes</a>
+  <a href="sneakers.php">Sneakers</a>
+  <a href="accessories.php">Accessories</a>
+    <a href="gallery.php">Gallery</a>
+  </section>
+
+  
+  <main class="catalog-page">
+    <h1 class="catalog-title">Sneakers</h1>
+    <p class="catalog-subtitle">Running, lifestyle, court and everyday shoes.</p>
+
+    <section class="catalog-grid">
+
+    
+      <article class="catalog-card">
+        <div class="catalog-img-wrap">
+          <img src="https://sportas.shop/pr_im/JP7773.webp?v=1763486411">
+        </div>
+        <div class="catalog-body">
+          <p class="catalog-tag">NEW</p>
+          <p class="catalog-brand">ADIDAS</p>
+          <h3 class="catalog-name">ADIDAS LIGHTBLAZE</h3>
+          <p class="catalog-price">110.00 €</p>
+
+          <p class="catalog-sizes-label">Available sizes:</p>
+          <div class="catalog-sizes">
+            <span>40</span><span>41</span><span>42</span><span>43</span><span>44</span>
+          </div>
+        </div>
+      </article>
+
+      
+      <article class="catalog-card">
+        <div class="catalog-img-wrap">
+          <img src="https://sportas.shop/pr_im/DV5458-134.webp?v=1763486552" >
+        </div>
+        <div class="catalog-body">
+          <p class="catalog-tag">NEW</p>
+          <p class="catalog-brand">NIKE</p>
+          <h3 class="catalog-name">Court Borough Low</h3>
+          <p class="catalog-price">50.00 €</p>
+
+          <p class="catalog-sizes-label">Available sizes:</p>
+          <div class="catalog-sizes">
+            <span>22</span><span>24</span><span>25</span><span>27</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="catalog-card">
+        <div class="catalog-img-wrap">
+          <img src="https://sportas.shop/pr_im/FQ1457-600.webp?v=1763486629">
+        </div>
+        <div class="catalog-body">
+          <p class="catalog-tag">NEW </p>
+          <p class="catalog-brand">NIKE</p>
+          <h3 class="catalog-name"> VAPOR 16 ELITE</h3>
+          <p class="catalog-price">292.00 €</p>
+
+          <p class="catalog-sizes-label">Available sizes:</p>
+          <div class="catalog-sizes">
+            <span>41</span><span>43</span><span>44</span><span>45</span>
+          </div>
+        </div>
+      </article>
+
+      
+      <article class="catalog-card">
+        <div class="catalog-img-wrap">
+          <img src="https://sportas.shop/pr_im/DZ2795-001.webp?v=1763486771">
+        </div>
+        <div class="catalog-body">
+          <p class="catalog-tag">NEW</p>
+          <p class="catalog-brand">NIKE</p>
+          <h3 class="catalog-name"> CORTEZ</h3>
+          <p class="catalog-price">101.00 €</p>
+
+          <p class="catalog-sizes-label">Available sizes:</p>
+          <div class="catalog-sizes">
+            <span>37</span><span>38</span><span>39</span>
+          </div>
+        </div>
+      </article>
+
+   
+      <article class="catalog-card">
+        <div class="catalog-img-wrap">
+          <img src="https://sportas.shop/pr_im/HV8154-604.webp?v=1763486687">
+        </div>
+        <div class="catalog-body">
+          <p class="catalog-tag">NEW</p>
+          <p class="catalog-brand">NIKE</p>
+          <h3 class="catalog-name"> VOMERO PLUS</h3>
+          <p class="catalog-price">190.00 €</p>
+
+          <p class="catalog-sizes-label">Available sizes:</p>
+          <div class="catalog-sizes">
+            <span>37</span><span>38</span><span>39</span><span>40</span>
+          </div>
+        </div>
+      </article>
+
+        
+      <article class="catalog-card">
+        <div class="catalog-img-wrap">
+          <img src="https://sportas.shop/pr_im/FZ6598-400.webp?v=1763486843">
+        </div>
+        <div class="catalog-body">
+          <p class="catalog-tag">NEW </p>
+          <p class="catalog-brand">JORDAN</p>
+          <h3 class="catalog-name">TATUM 3</h3>
+          <p class="catalog-price">146.00 €</p>
+
+          <p class="catalog-sizes-label">Available sizes:</p>
+          <div class="catalog-sizes">
+            <span>42</span><span>44</span><span>46</span><span>47</span>
+          </div>
+        </div>
+      </article>
+
+       
+      <article class="catalog-card">
+        <div class="catalog-img-wrap">
+          <img src="https://sportas.shop/pr_im/JS3807.webp?v=1763486897">
+        </div>
+        <div class="catalog-body">
+          <p class="catalog-tag">NEW </p>
+          <p class="catalog-brand">ADIDAS</p>
+          <h3 class="catalog-name">CAMPUS</h3>
+          <p class="catalog-price">90.00 €</p>
+
+          <p class="catalog-sizes-label">Available sizes:</p>
+          <div class="catalog-sizes">
+            <span>42</span>
+          </div>
+        </div>
+      </article>
+
+
+      
+      <article class="catalog-card">
+        <div class="catalog-img-wrap">
+          <img src="https://sportas.shop/pr_im/IH2063-201.webp?v=1763486948">
+        </div>
+        <div class="catalog-body">
+          <p class="catalog-tag">NEW </p>
+          <p class="catalog-brand">NIKE</p>
+          <h3 class="catalog-name">AIR MAX 90</h3>
+          <p class="catalog-price">167.00 €</p>
+
+          <p class="catalog-sizes-label">Available sizes:</p>
+          <div class="catalog-sizes">
+            <span>41</span><span>43</span><span>44</span><span>45</span>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 CourtLine. All rights reserved.</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -31,7 +31,7 @@ $items = $pdo->query("select * from gallery_items order by created_at desc")->fe
       <a href="clothes.html">Men</a>
       <a href="sneakers.html">Women</a>
       <a href="kids.html">Kids</a>
-      <a href="new.html">New</a>
+      <a href="products.php">New</a>
       <a href="football.html">Football</a>
     </div>
 
@@ -40,18 +40,25 @@ $items = $pdo->query("select * from gallery_items order by created_at desc")->fe
     </div>
 
     <div class="nav-right">
+      <a href="about.php">About</a>
+<a href="contact.php">Contact</a>
+
       <form class="search-form">
-        <input type="text" placeholder="Search">
+        <input type="text" placeholder="Search" />
       </form>
+      
       <?php if ($user): ?>
-        <?php if ($user["role"] === "admin"): ?>
-          <a href="admin/dashboard.php" class="nav-link-light">Dashboard</a>
-        <?php endif; ?>
-        <a href="logout.php" class="btn-nav">Logout</a>
-      <?php else: ?>
-        <a href="login.php" class="nav-link-light">Login</a>
-        <a href="register.php" class="btn-nav">Sign Up</a>
-      <?php endif; ?>
+  <?php if ($user["role"] === "admin"): ?>
+    <a href="admin/dashboard.php" class="nav-link-light">Dashboard</a>
+  <?php endif; ?>
+
+  <span class="nav-link-light">Hi, <?php echo htmlspecialchars($user["name"]); ?></span>
+  <a href="logout.php" class="btn-nav">Logout</a>
+<?php else: ?>
+  <a href="login.php" class="nav-link-light">Login</a>
+  <a href="register.php" class="btn-nav">Sign Up</a>
+<?php endif; ?>
+
     </div>
   </header>
 
