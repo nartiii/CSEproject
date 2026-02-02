@@ -32,6 +32,12 @@
    View Contact Messages
   </a>
 
+   <a href="users.php"
+     style="display:inline-block;padding:10px 14px;border:1px solid #222;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:600;">
+   Manage Users
+  </a>
+
+
   <a href="../index.php"
      style="display:inline-block;padding:10px 14px;border:1px solid #222;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:600;">
     Back to Website

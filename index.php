@@ -44,7 +44,7 @@ $newCollection = $pdo->query("select id, title, price, image_path from products 
       <a href="men.html">Men</a>
       <a href="women.html">Women</a>
       <a href="kids.html">Kids</a>
-      <a href="products.php">New</a>
+      <a href="products.php">Products</a>
       <a href="football.html">Football</a>
       
     </div>
@@ -150,7 +150,7 @@ $newCollection = $pdo->query("select id, title, price, image_path from products 
         <img src="<?php echo htmlspecialchars($p["image_path"] ?? ""); ?>" class="product-image">
         <h3><?php echo htmlspecialchars($p["title"] ?? ""); ?></h3>
         <span class="price"><?php echo number_format((float)($p["price"] ?? 0), 2); ?>€</span>
-        <a href="products.php" class="btn-secondary">View Details</a>
+        <a href="product_detail.php?id=<?php echo (int)$p["id"]; ?>" class="btn-secondary">View Details</a>
       </div>
     <?php endforeach; ?>
   </div>

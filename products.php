@@ -44,8 +44,8 @@ $products = $pdo->query("select * from products order by created_at desc")->fetc
       <form class="search-form">
         <input type="text" placeholder="Search">
       </form>
-      <a href="login.html" class="nav-link-light">Login</a>
-      <a href="register.html" class="btn-nav">Sign Up</a>
+      <a href="login.php" class="nav-link-light">Login</a>
+      <a href="register.php" class="btn-nav">Sign Up</a>
     </div>
   </header>
 
@@ -53,7 +53,7 @@ $products = $pdo->query("select * from products order by created_at desc")->fetc
   <a href="clothes.html">Clothes</a>
   <a href="sneakers.html">Sneakers</a>
   <a href="accessories.html">Accessories</a>
-    <a href="gallery.html">Gallery</a>
+    <a href="gallery.php">Gallery</a>
   </section>
 
   <main class="catalog-page">
@@ -77,168 +77,28 @@ $products = $pdo->query("select * from products order by created_at desc")->fetc
         <p class="catalog-price">
           <?php echo number_format((float)$p['price'], 2); ?> €
         </p>
+<a href="product_detail.php?id=<?php echo (int)$p["id"]; ?>" class="btn-secondary">View Details</a>
 
-        <p class="catalog-sizes-label">Available sizes:</p>
-        <div class="catalog-sizes">
-          <span>OS</span>
-        </div>
+          <?php
+$sizesRaw = trim($p["sizes"] ?? "");
+$sizes = $sizesRaw !== "" ? array_map("trim", explode(",", $sizesRaw)) : [];
+?>
+
+<?php if (!empty($sizes)): ?>
+  <p class="catalog-sizes-label">Available sizes:</p>
+  <div class="catalog-sizes">
+    <?php foreach ($sizes as $sz): ?>
+      <span><?php echo htmlspecialchars($sz); ?></span>
+    <?php endforeach; ?>
+  </div>
+<?php endif; ?>
+
       </div>
     </article>
   <?php endforeach; ?>
 
 </section>
 
-
-
-
-
-  <!--  <section class="catalog-grid">
-
-      
-      <article class="catalog-card">
-        <div class="catalog-img-wrap">
-          <img src="https://sportas.shop/pr_im/HF0176-010.webp?v=1763557030">
-        </div>
-        <div class="catalog-body">
-          <p class="catalog-tag">NEW</p>
-          <p class="catalog-brand">NIKE</p>
-          <h3 class="catalog-name"> BEANIE </h3>
-          <p class="catalog-price">28.00 €</p>
-
-          <p class="catalog-sizes-label">Available sizes:</p>
-          <div class="catalog-sizes">
-            <span>OS</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="catalog-card">
-        <div class="catalog-img-wrap">
-          <img src="https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto/047d5e0e-4eb9-41a7-b6a5-b3d662a2b44b/NIKE+DUNK+LOW+%28GS%29.png" >
-        </div>
-        <div class="catalog-body">
-          <p class="catalog-tag">NEW</p>
-          <p class="catalog-brand">NIKE</p>
-          <h3 class="catalog-name">Dunks Low</h3>
-          <p class="catalog-price">70.00 €</p>
-
-          <p class="catalog-sizes-label">Available sizes:</p>
-          <div class="catalog-sizes">
-            <span>36</span><span>38</span><span>39</span><span>39.5</span>
-          </div>
-        </div>
-      </article>
-
-      
-      <article class="catalog-card">
-        <div class="catalog-img-wrap">
-          <img src="https://sportas.shop/pr_im/2819E-6ZQ-99.webp?v=1763557278">
-        </div>
-        <div class="catalog-body">
-          <p class="catalog-tag">NEW </p>
-          <p class="catalog-brand">Colmar</p>
-          <h3 class="catalog-name"> Padded Ski Jacket</h3>
-          <p class="catalog-price">766.00 €</p>
-
-          <p class="catalog-sizes-label">Available sizes:</p>
-          <div class="catalog-sizes">
-            <span>S</span><span>M</span><span>L</span><span>XL</span>
-          </div>
-        </div>
-      </article>
-
-      
-      <article class="catalog-card">
-        <div class="catalog-img-wrap">
-          <img src="https://sportas.shop/pr_im/IH2882.webp?v=1763557416">
-        </div>
-        <div class="catalog-body">
-          <p class="catalog-tag">NEW</p>
-          <p class="catalog-brand">ADIDAS</p>
-          <h3 class="catalog-name">TERREX TRAILMAKER 2</h3>
-          <p class="catalog-price">100.00 €</p>
-
-          <p class="catalog-sizes-label">Available sizes:</p>
-          <div class="catalog-sizes">
-            <span>35</span><span>36.5</span><span>37</span>
-          </div>
-        </div>
-      </article>
-
-       
-      <article class="catalog-card">
-        <div class="catalog-img-wrap">
-          <img src="https://sportas.shop/pr_im/JX5080.webp?v=1763428087">
-        </div>
-        <div class="catalog-body">
-          <p class="catalog-tag">NEW</p>
-          <p class="catalog-brand">ADIDAS</p>
-          <h3 class="catalog-name">SZN TEE</h3>
-          <p class="catalog-price">30.00 €</p>
-
-          <p class="catalog-sizes-label">Available sizes:</p>
-          <div class="catalog-sizes">
-            <span>M</span><span>L</span>
-          </div>
-        </div>
-      </article>
-
-        
-      <article class="catalog-card">
-        <div class="catalog-img-wrap">
-          <img src="https://sportas.shop/pr_im/WS327GD.webp?v=1763557464">
-        </div>
-        <div class="catalog-body">
-          <p class="catalog-tag">NEW </p>
-          <p class="catalog-brand">New Balance</p>
-          <h3 class="catalog-name">327</h3>
-          <p class="catalog-price">130.00 €</p>
-
-          <p class="catalog-sizes-label">Available sizes:</p>
-          <div class="catalog-sizes">
-            <span>38</span><span>39</span><span>40</span><span>41</span>
-          </div>
-        </div>
-      </article>
-
-       
-      <article class="catalog-card">
-        <div class="catalog-img-wrap">
-          <img src="https://sportas.shop/pr_im/JX5637.webp?v=1763557588">
-        </div>
-        <div class="catalog-body">
-          <p class="catalog-tag">NEW </p>
-          <p class="catalog-brand">ADIDAS</p>
-          <h3 class="catalog-name">Bomber Jacket</h3>
-          <p class="catalog-price">110.00 €</p>
-
-          <p class="catalog-sizes-label">Available sizes:</p>
-          <div class="catalog-sizes">
-            <span>XL</span>
-          </div>
-        </div>
-      </article>
-
-
-        
-      <article class="catalog-card">
-        <div class="catalog-img-wrap">
-          <img src="https://sportas.shop/pr_im/JD2672.webp?v=1763557667">
-        </div>
-        <div class="catalog-body">
-          <p class="catalog-tag">NEW </p>
-          <p class="catalog-brand">ADIDAS</p>
-          <h3 class="catalog-name">Laziday Track Suit</h3>
-          <p class="catalog-price">100.00 €</p>
-
-          <p class="catalog-sizes-label">Available sizes:</p>
-          <div class="catalog-sizes">
-            <span>S</span><span>M</span><span>L</span><span>XL</span>
-          </div>
-        </div>
-      </article>
-
-    </section> -->
   </main>
 
   <footer class="footer">
