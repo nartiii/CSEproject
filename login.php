@@ -2,6 +2,8 @@
 require_once __DIR__ . "/app/Database.php";
 require_once __DIR__ . "/app/Auth.php";
 
+$user = Auth::user();
+
 $errors = [];
 $email = "";
 
@@ -16,18 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $pdo = Database::connect();
     $stmt = $pdo->prepare("select * from users where email = ?");
     $stmt->execute([$email]);
-    $user = $stmt->fetch();
+    $row = $stmt->fetch();
 
-    if (!$user || !password_verify($password, $user["password_hash"])) {
+    if (!$row || !password_verify($password, $row["password_hash"])) {
       $errors[] = "Wrong email or password.";
     } else {
-      Auth::login($user);
-
-      if ($user["role"] === "admin") {
-        header("Location: admin/dashboard.php");
-      } else {
-        header("Location: index.php");
-      }
+      Auth::login($row);
+      header("Location: " . ($row["role"] === "admin" ? "admin/dashboard.php" : "index.php"));
       exit;
     }
   }
@@ -39,35 +36,87 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <meta charset="UTF-8">
   <title>CourtLine | Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
-  <main style="max-width: 520px; margin: 0 auto; padding: 24px;">
-    <h1>Login</h1>
+  <div class="top-bar">
+    <p>Free shipping on orders over 50€</p>
+  </div>
 
-    <?php if (count($errors) > 0): ?>
-      <div style="padding:10px;border:1px solid #402020;background:#120707;border-radius:6px;">
-        <ul>
-          <?php foreach ($errors as $e): ?>
-            <li><?php echo htmlspecialchars($e); ?></li>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-    <?php endif; ?>
+  <header class="header">
+    <div class="nav-left">
+      <a href="men.php">Men</a>
+      <a href="women.php">Women</a>
+      <a href="kids.php">Kids</a>
+      <a href="products.php">New</a>
+      <a href="football.php">Football</a>
+    </div>
 
-    <form id="loginForm" method="post" action="login.php" style="display:flex;flex-direction:column;gap:12px;margin-top:14px;">
-      <input type="email" name="email" id="loginEmail" placeholder="Email" value="<?php echo htmlspecialchars($email); ?>">
-      <input type="password" name="password" id="loginPassword" placeholder="Password">
-      <p id="loginError"></p>
-      <button type="submit">Login</button>
-    </form>
+    <div class="nav-logo">
+      <a href="index.php">CourtLine<span>.</span></a>
+    </div>
 
-    <p style="margin-top:12px;">
-      Don’t have an account? <a href="register.php">Register</a>
-    </p>
+    <div class="nav-right">
+      <a href="about.php">About</a>
+      <a href="contact.php">Contact</a>
+
+      <form class="search-form">
+        <input type="text" placeholder="Search" />
+      </form>
+
+      <?php if ($user): ?>
+        <?php if ($user["role"] === "admin"): ?>
+          <a href="admin/dashboard.php" class="nav-link-light">Dashboard</a>
+        <?php endif; ?>
+        <span class="nav-link-light">Hi, <?php echo htmlspecialchars($user["name"]); ?></span>
+        <a href="logout.php" class="btn-nav">Logout</a>
+      <?php else: ?>
+        <a href="login.php" class="nav-link-light">Login</a>
+        <a href="register.php" class="btn-nav">Sign Up</a>
+      <?php endif; ?>
+    </div>
+  </header>
+
+  <section class="category-strip">
+    <a href="clothes.php">Clothes</a>
+    <a href="sneakers.php">Sneakers</a>
+    <a href="accessories.php">Accessories</a>
+    <a href="gallery.php">Gallery</a>
+  </section>
+
+  <main class="form-page">
+    <div class="form-card">
+      <h1>Login</h1>
+      <p class="form-subtitle">Welcome back — enter your details to continue.</p>
+
+      <?php if (count($errors) > 0): ?>
+        <div class="alert alert-error">
+          <ul>
+            <?php foreach ($errors as $e): ?>
+              <li><?php echo htmlspecialchars($e); ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      <?php endif; ?>
+
+      <form id="loginForm" class="form" method="post" action="login.php">
+        <input type="email" name="email" id="loginEmail" placeholder="Email" value="<?php echo htmlspecialchars($email); ?>">
+        <input type="password" name="password" id="loginPassword" placeholder="Password">
+        <p id="loginError" class="form-error"></p>
+        <button type="submit" class="btn-main form-btn">Login</button>
+      </form>
+
+      <p class="form-bottom">
+        Don’t have an account? <a href="register.php">Register</a>
+      </p>
+    </div>
   </main>
 
-  <script src="main.js"></script>
+  <footer class="footer">
+    <p>© 2025 CourtLine. All rights reserved.</p>
+  </footer>
+
+   <script src="assets/main.js"></script>
 </body>
 </html>

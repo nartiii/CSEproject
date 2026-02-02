@@ -25,7 +25,7 @@ if (!$product) {
 <head>
   <meta charset="UTF-8">
   <title><?php echo htmlspecialchars($product["title"] ?? "Product"); ?> | CourtLine</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -36,11 +36,11 @@ if (!$product) {
 
   <header class="header">
     <div class="nav-left">
-      <a href="men.html">Men</a>
-      <a href="women.html">Women</a>
-      <a href="kids.html">Kids</a>
+      <a href="men.php">Men</a>
+      <a href="women.php">Women</a>
+      <a href="kids.php">Kids</a>
       <a href="products.php">New</a>
-      <a href="football.html">Football</a>
+      <a href="football.php">Football</a>
     </div>
 
     <div class="nav-logo">
@@ -69,9 +69,9 @@ if (!$product) {
   </header>
 
   <section class="category-strip">
-    <a href="clothes.html">Clothes</a>
-    <a href="sneakers.html">Sneakers</a>
-    <a href="accessories.html">Accessories</a>
+    <a href="clothes.php">Clothes</a>
+    <a href="sneakers.php">Sneakers</a>
+    <a href="accessories.php">Accessories</a>
     <a href="gallery.php">Gallery</a>
   </section>
 

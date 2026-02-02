@@ -2,6 +2,8 @@
 require_once __DIR__ . "/app/Database.php";
 require_once __DIR__ . "/app/Auth.php";
 
+$user = Auth::user();
+
 $errors = [];
 $ok = false;
 
@@ -28,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       $errors[] = "Email already exists.";
     } else {
       $hash = password_hash($password, PASSWORD_DEFAULT);
-
       $stmt = $pdo->prepare("insert into users (name, email, password_hash, role) values (?, ?, ?, 'user')");
       $stmt->execute([$name, $email, $hash]);
 
@@ -45,43 +46,95 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <meta charset="UTF-8">
   <title>CourtLine | Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="register.css">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
-  <main style="max-width: 520px; margin: 0 auto; padding: 24px;">
-    <h1>Create account</h1>
+  <div class="top-bar">
+    <p>Free shipping on orders over 50€</p>
+  </div>
 
-    <?php if ($ok): ?>
-      <p style="padding:10px;border:1px solid #1f4020;background:#071207;border-radius:6px;">
-        ✅ Registered successfully. You can now <a href="login.php">login</a>.
+  <header class="header">
+    <div class="nav-left">
+      <a href="men.php">Men</a>
+      <a href="women.php">Women</a>
+      <a href="kids.php">Kids</a>
+      <a href="products.php">New</a>
+      <a href="football.php">Football</a>
+    </div>
+
+    <div class="nav-logo">
+      <a href="index.php">CourtLine<span>.</span></a>
+    </div>
+
+    <div class="nav-right">
+      <a href="about.php">About</a>
+      <a href="contact.php">Contact</a>
+
+      <form class="search-form">
+        <input type="text" placeholder="Search" />
+      </form>
+
+      <?php if ($user): ?>
+        <?php if ($user["role"] === "admin"): ?>
+          <a href="admin/dashboard.php" class="nav-link-light">Dashboard</a>
+        <?php endif; ?>
+        <span class="nav-link-light">Hi, <?php echo htmlspecialchars($user["name"]); ?></span>
+        <a href="logout.php" class="btn-nav">Logout</a>
+      <?php else: ?>
+        <a href="login.php" class="nav-link-light">Login</a>
+        <a href="register.php" class="btn-nav">Sign Up</a>
+      <?php endif; ?>
+    </div>
+  </header>
+
+  <section class="category-strip">
+    <a href="clothes.php">Clothes</a>
+    <a href="sneakers.php">Sneakers</a>
+    <a href="accessories.php">Accessories</a>
+    <a href="gallery.php">Gallery</a>
+  </section>
+
+  <main class="form-page">
+    <div class="form-card">
+      <h1>Create account</h1>
+      <p class="form-subtitle">Join CourtLine for new drops and exclusive picks.</p>
+
+      <?php if ($ok): ?>
+        <div class="alert alert-success">
+          ✅ Registered successfully. You can now <a href="login.php">login</a>.
+        </div>
+      <?php endif; ?>
+
+      <?php if (count($errors) > 0): ?>
+        <div class="alert alert-error">
+          <ul>
+            <?php foreach ($errors as $e): ?>
+              <li><?php echo htmlspecialchars($e); ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      <?php endif; ?>
+
+      <form id="registerForm" class="form" method="post" action="register.php">
+        <input type="text" name="name" id="registerUsername" placeholder="Name" value="<?php echo htmlspecialchars($name); ?>">
+        <input type="email" name="email" id="registerEmail" placeholder="Email" value="<?php echo htmlspecialchars($email); ?>">
+        <input type="password" name="password" id="registerPassword" placeholder="Password">
+        <input type="password" name="confirm_password" id="registerConfirmPassword" placeholder="Confirm Password">
+        <p id="registerError" class="form-error"></p>
+        <button type="submit" class="btn-main form-btn">Register</button>
+      </form>
+
+      <p class="form-bottom">
+        Already have an account? <a href="login.php">Login</a>
       </p>
-    <?php endif; ?>
-
-    <?php if (count($errors) > 0): ?>
-      <div style="padding:10px;border:1px solid #402020;background:#120707;border-radius:6px;">
-        <ul>
-          <?php foreach ($errors as $e): ?>
-            <li><?php echo htmlspecialchars($e); ?></li>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-    <?php endif; ?>
-
-    <form id="registerForm" method="post" action="register.php" style="display:flex;flex-direction:column;gap:12px;margin-top:14px;">
-      <input type="text" name="name" id="registerUsername" placeholder="Name" value="<?php echo htmlspecialchars($name); ?>">
-      <input type="email" name="email" id="registerEmail" placeholder="Email" value="<?php echo htmlspecialchars($email); ?>">
-      <input type="password" name="password" id="registerPassword" placeholder="Password">
-      <input type="password" name="confirm_password" id="registerConfirmPassword" placeholder="Confirm Password">
-      <p id="registerError"></p>
-      <button type="submit">Register</button>
-    </form>
-
-    <p style="margin-top:12px;">
-      Already have an account? <a href="login.php">Login</a>
-    </p>
+    </div>
   </main>
 
-  <script src="main.js"></script>
+  <footer class="footer">
+    <p>© 2025 CourtLine. All rights reserved.</p>
+  </footer>
+
+   <script src="assets/main.js"></script>
 </body>
 </html>

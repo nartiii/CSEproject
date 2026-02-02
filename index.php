@@ -28,7 +28,7 @@ $newCollection = $pdo->query("select id, title, price, image_path from products 
 <head>
   <meta charset="UTF-8">
   <title>CourtLine | The Heart of Sportswear</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -41,11 +41,11 @@ $newCollection = $pdo->query("select id, title, price, image_path from products 
   
   <header class="header">
     <div class="nav-left">
-      <a href="men.html">Men</a>
-      <a href="women.html">Women</a>
-      <a href="kids.html">Kids</a>
+      <a href="men.php">Men</a>
+      <a href="women.php">Women</a>
+      <a href="kids.php">Kids</a>
       <a href="products.php">Products</a>
-      <a href="football.html">Football</a>
+      <a href="football.php">Football</a>
       
     </div>
 
@@ -77,9 +77,9 @@ $newCollection = $pdo->query("select id, title, price, image_path from products 
   </header>
 
   <section class="category-strip">
-  <a href="clothes.html">Clothes</a>
-  <a href="sneakers.html">Sneakers</a>
-  <a href="accessories.html">Accessories</a>
+  <a href="clothes.php">Clothes</a>
+  <a href="sneakers.php">Sneakers</a>
+  <a href="accessories.php">Accessories</a>
     <a href="gallery.php">Gallery</a>
   </section>
 
@@ -119,17 +119,17 @@ $newCollection = $pdo->query("select id, title, price, image_path from products 
     <section class="categories">
       <h2>Shop by Category</h2>
       <div class="categories-grid">
-        <a href="men.html" class="category-card">
+        <a href="men.php" class="category-card">
           <div class="category-label">MEN</div>
           <p>Sneakers, tracksuits and training gear.</p>
         </a>
 
-        <a href="women.html" class="category-card">
+        <a href="women.php" class="category-card">
           <div class="category-label">WOMEN</div>
           <p>Streetwear and performance fits.</p>
         </a>
 
-        <a href="kids.html" class="category-card">
+        <a href="kids.php" class="category-card">
           <div class="category-label">KIDS</div>
           <p>Mini sizes, full style.</p>
         </a>
@@ -198,6 +198,6 @@ $newCollection = $pdo->query("select id, title, price, image_path from products 
     <p>© 2025 CourtLine. All rights reserved.</p>
   </footer>
 
-  <script src="main.js"></script>
+   <script src="assets/main.js"></script>
 </body>
 </html>

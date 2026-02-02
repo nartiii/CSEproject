@@ -1,9 +1,21 @@
+<?php
+require_once __DIR__ . "/app/Auth.php";
+$user = Auth::user();
+require_once __DIR__ . "/app/Database.php";
+require_once __DIR__ . "/app/Content.php";
+
+$pdo = Database::connect();
+
+
+?>
+
+
 <!DOCTYPE html>
 
 <head>
   <meta charset="UTF-8">
   <title>CourtLine | women</title>
-  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="assets/main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -17,32 +29,46 @@
   
   <header class="header">
     <div class="nav-left">
-      <a href="men.html">Men</a>
-      <a href="women.html">Women</a>
-      <a href="kids.html">Kids</a>
-      <a href="products.html">New</a>
-      <a href="football.html">Football</a>
+      <a href="men.php">Men</a>
+      <a href="women.php">Women</a>
+      <a href="kids.php">Kids</a>
+      <a href="products.php">Products</a>
+      <a href="football.php">Football</a>
     </div>
 
     <div class="nav-logo">
-      <a href="index.html">CourtLine<span>.</span></a>
+      <a href="index.php">CourtLine<span>.</span></a>
     </div>
 
-    <div class="nav-right">
+     <div class="nav-right">
+      <a href="about.php">About</a>
+<a href="contact.php">Contact</a>
+
       <form class="search-form">
-        <input type="text" placeholder="Search">
+        <input type="text" placeholder="Search" />
       </form>
-      <a href="login.html" class="nav-link-light">Login</a>
-      <a href="register.html" class="btn-nav">Sign Up</a>
+      
+      <?php if ($user): ?>
+  <?php if ($user["role"] === "admin"): ?>
+    <a href="admin/dashboard.php" class="nav-link-light">Dashboard</a>
+  <?php endif; ?>
+
+  <span class="nav-link-light">Hi, <?php echo htmlspecialchars($user["name"]); ?></span>
+  <a href="logout.php" class="btn-nav">Logout</a>
+<?php else: ?>
+  <a href="login.php" class="nav-link-light">Login</a>
+  <a href="register.php" class="btn-nav">Sign Up</a>
+<?php endif; ?>
+
     </div>
   </header>
 
 
   <section class="category-strip">
-  <a href="clothes.html">Clothes</a>
-  <a href="sneakers.html">Sneakers</a>
-  <a href="accessories.html">Accessories</a>
-    <a href="gallery.html">Gallery</a>
+  <a href="clothes.php">Clothes</a>
+  <a href="sneakers.php">Sneakers</a>
+  <a href="accessories.php">Accessories</a>
+    <a href="gallery.php">Gallery</a>
   </section>
 
 
@@ -204,6 +230,6 @@
     <p>© 2025 CourtLine. All rights reserved.</p>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="assets/main.js"></script>
 </body>
 </html>
