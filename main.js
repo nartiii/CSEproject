@@ -1,24 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
- 
   const slides = document.querySelectorAll(".slide");
   const dots = document.querySelectorAll(".dot");
   const prev = document.querySelector(".slider-btn.prev");
   const next = document.querySelector(".slider-btn.next");
 
-  
   if (slides.length > 0 && dots.length === slides.length && prev && next) {
     let index = 0;
 
     function show(i) {
-    
       if (i < 0) i = slides.length - 1;
       if (i >= slides.length) i = 0;
 
-      
       slides.forEach(s => s.classList.remove("active"));
       dots.forEach(d => d.classList.remove("active"));
 
-   
       slides[i].classList.add("active");
       dots[i].classList.add("active");
       index = i;
@@ -28,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
     next.addEventListener("click", () => show(index + 1));
     dots.forEach((d, i) => d.addEventListener("click", () => show(i)));
   }
+});
+
 
 
   function isEmailValid(email) {
@@ -129,4 +126,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
+

@@ -1,6 +1,17 @@
 <?php
 require_once __DIR__ . "/app/Auth.php";
 $user = Auth::user();
+require_once __DIR__ . "/app/Database.php";
+require_once __DIR__ . "/app/Content.php";
+
+$pdo = Database::connect();
+
+$slides = $pdo->query("select * from home_slides order by sort_order asc")->fetchAll();
+
+$newCollection = $pdo->query("select id, title, price, image_path from products order by created_at desc limit 8")->fetchAll();
+
+
+
 ?>
     
     
@@ -31,7 +42,7 @@ $user = Auth::user();
     </div>
 
     <div class="nav-logo">
-      <a href="index.html">CourtLine<span>.</span></a>
+      <a href="index.php">CourtLine<span>.</span></a>
     </div>
 
     <div class="nav-right">
@@ -61,51 +72,40 @@ $user = Auth::user();
   <a href="clothes.html">Clothes</a>
   <a href="sneakers.html">Sneakers</a>
   <a href="accessories.html">Accessories</a>
-    <a href="gallery.html">Gallery</a>
+    <a href="gallery.php">Gallery</a>
   </section>
 
   <main>
 
     
     <section class="hero-slider">
-      <div class="slider-container">
-        <div class="slide active">
-          <div class="slide-bg slide1"></div>
-          <div class="slide-content">
-            <h1>New Season, New Heat</h1>
-            <p>Fresh drops for every court and street.</p>
-            <a href="products.php" class="btn-main">Shop Now</a>
-          </div>
-        </div>
+  <div class="slider-container">
 
-        <div class="slide">
-          <div class="slide-bg slide2"></div>
-          <div class="slide-content">
-            <h1>Run Your Game</h1>
-            <p>The best, only for the best.</p>
-            <a href="football.html" class="btn-main">Shop now</a>
-          </div>
-        </div>
-
-        <div class="slide">
-          <div class="slide-bg slide3"></div>
-          <div class="slide-content">
-            <h1>Conquer the Outdoors</h1>
-            <p>Jackets, cargo pants and trail essentials built for the outdoors.</p>
-            <a href="products.html" class="btn-main">Shop Now</a>
-          </div>
-        </div>
-
-        <button class="slider-btn prev">&#10094;</button>
-        <button class="slider-btn next">&#10095;</button>
-
-        <div class="slider-dots">
-          <span class="dot active" data-index="0"></span>
-          <span class="dot" data-index="1"></span>
-          <span class="dot" data-index="2"></span>
+    <?php foreach ($slides as $i => $s): ?>
+      <div class="slide <?php echo $i === 0 ? 'active' : ''; ?>">
+        <div class="slide-bg" style="background-image:url('<?php echo htmlspecialchars($s["image_url"]); ?>');"></div>
+        <div class="slide-content">
+          <h1><?php echo htmlspecialchars($s["title"]); ?></h1>
+          <p><?php echo htmlspecialchars($s["subtitle"]); ?></p>
+          <a href="<?php echo htmlspecialchars($s["button_link"]); ?>" class="btn-main">
+            <?php echo htmlspecialchars($s["button_text"]); ?>
+          </a>
         </div>
       </div>
-    </section>
+    <?php endforeach; ?>
+
+    <button class="slider-btn prev">&#10094;</button>
+    <button class="slider-btn next">&#10095;</button>
+
+    <div class="slider-dots">
+      <?php foreach ($slides as $i => $_): ?>
+        <span class="dot <?php echo $i === 0 ? 'active' : ''; ?>" data-index="<?php echo $i; ?>"></span>
+      <?php endforeach; ?>
+    </div>
+
+  </div>
+</section>
+
 
 
     <section class="categories">
@@ -128,38 +128,26 @@ $user = Auth::user();
       </div>
     </section>
 
-<section class="brand-gallery">
-  <h2>Gallery</h2>
+    <section class="featured">
+  <h2>New Collection</h2>
 
- <div class="brand-inline-gallery">
-    
+  <div class="products-grid grid-4">
 
-    
-    
-      <img src ="https://www.buzzsneakers.al/files/images/2025/10/8/Ikona%20koja%20se%20nosi%20kroz%20generacije.%20__%23adidas%20Superstar%20II%20sada%20tvoj%20stil%20_ini%20nezaboravnim._Do%20%281%29.jpg" >
-      <img src="https://sportas.shop/images/68e4b5c4183ae_ry54y.jpg">
-      <img src="https://www.buzzsneakers.al/files/images/2025/10/8/Za%20one%20koji%20nose%20stav%2C%20a%20ne%20samo%20dres.%20_%23Buzz%20ti%20donosi%20%23Nike%20Look%20of%20Football%20kolekciju%20koja%20me%20%281%29.jpg">
-      <img src="https://i8.amplience.net/i/jpl/desktop-content-spot-840x740-1-65eb74879a99c1ece5837ab1b7912299?qlt=80&fmt=auto" >
-     
-        
-     
-      <img src="https://images.footlocker.com/content/dam/final/footlockereurope/Online_activations/fl-campaign/2024/2024_04_02_fl_hp_nav-images/05_final_output_files/2024_04_02_FL_HP_Nav-Images_Home%20of%20TN_Design_1024x768_.jpg" >
-      <img src= "https://sportas.shop/images/trending_collections/1759222146.jpg" >
-      <img src="https://www.buzzsneakers.ba/files/images/buzz_crew_cro_adilette_photo_3(1).jpg" >
-      <img src="https://images.footlocker.com/content/dam/final/footlockereurope/Online_activations/vendor-stories/2025/jordan/2025_10_16_onl_jordan_tatum/HP%20HC%20button%20800x800_V2.jpg" >
-      <img src="https://images.footlocker.com/content/dam/final/footlockereurope/Online_activations/vendor-stories/2025/adidas/2025_06_02_fl_onl_adidas_animal_print_pack/NAV%20IMAGE1074x768.png" >
-      
-      <img src="https://i8.amplience.net/i/jpl/dropdown-552x552-b78b95426adeb77e26d0a837be854c81?qlt=80&fmt=auto" >
-    
-    </div>
-
-
-  
+    <?php foreach ($newCollection as $p): ?>
+      <div class="product-card">
+        <img src="<?php echo htmlspecialchars($p["image_path"] ?? ""); ?>" class="product-image">
+        <h3><?php echo htmlspecialchars($p["title"] ?? ""); ?></h3>
+        <span class="price"><?php echo number_format((float)($p["price"] ?? 0), 2); ?>€</span>
+        <a href="products.php" class="btn-secondary">View Details</a>
+      </div>
+    <?php endforeach; ?>
+  </div>
 </section>
+
 
     
     <section class="featured">  
-      <h2>Featured Picks</h2>
+      <h2>Staff Picks</h2>
       <div class="products-grid">
         <div class="product-card">
           <img src="images/runner2.jpg" class="product-image">
@@ -190,7 +178,7 @@ $user = Auth::user();
    
     <section class="banner">
       <p>Become a CourtLine member and get <strong>10% off</strong> your first order.</p>
-      <a href="register.html" class="btn-main">Join CourtLine</a>
+      <a href="register.php" class="btn-main">Join CourtLine</a>
     </section>
   </main>
 

@@ -10,28 +10,33 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0;">
+  <a href="products_list.php"
+     style="display:inline-block;padding:10px 14px;border:1px solid #222;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:600;">
+    Manage Products
+  </a>
 
-  <main style="max-width: 1000px; margin: 0 auto; padding: 24px;">
-    <h1>Admin Dashboard</h1>
-    <p>Manage your website content here.</p>
+  <a href="messages.php"
+     style="display:inline-block;padding:10px 14px;border:1px solid #222;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:600;">
+    View Contact Messages
+  </a>
 
-    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
-      <a href="products_list.php" style="padding:12px 14px; border:1px solid #333; border-radius:8px; text-decoration:none;">
-        Manage Products 
-      </a>
+  <a href="slides_list.php"
+     style="display:inline-block;padding:10px 14px;border:1px solid #222;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:600;">
+    Manage Home Slider
+  </a>
 
-      <a href="messages.php" style="padding:12px 14px; border:1px solid #333; border-radius:8px; text-decoration:none;">
-        View Contact Messages
-      </a>
+  <a href="../index.php"
+     style="display:inline-block;padding:10px 14px;border:1px solid #222;border-radius:10px;background:#fff;color:#111;text-decoration:none;font-weight:600;">
+    Back to Website
+  </a>
+</div>
 
-      <a href="../index.php" style="padding:12px 14px; border:1px solid #333; border-radius:8px; text-decoration:none;">
-        Back to Website
-      </a>
-    </div>
+
+
 
     <hr style="margin: 24px 0; border: none; border-top: 1px solid #222;">
 
-   
   </main>
 
 </body>
